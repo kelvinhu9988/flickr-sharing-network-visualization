@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Visualizing Flickr Sharing Network</title>
+        <link rel="icon" href="icon/favicon.ico" type="image/x-icon"/>
+        <meta name="description" content="">
+        <meta name="author" content="Siyuan Hu">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <link rel="stylesheet" href="src/style.css">
+        <script src="src/d3.v4.js"></script>
+        <script src="src/jquery-1.10.2.js"></script>
+        <script src="src/d3-tip.js"></script>
+        <script src="src/d3.layout.cloud.js"></script>
+        <script src="src/radial_bar_chart.js"></script>
+        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    </head>
+
+    <body>
+        <div id="container">
+            <h1>Flickr Sharing Network Visualization</h1>
+            <div class="description">
+                <h2>Photo Similarity Network</h2>
+                <p>
+                    This section tries to visualize the similarity network of a chosen photo.
+                    An edge between photo nodes is formed when two photos either are uploaded by the same user or share same tags.
+                    Grey links signify same tags. Brown links signify being uploaded by the same user.
+                    Red links signify same tags as well as being uploaded by the same user.
+                    User can mouse hover a photo node to see more information about that photo.
+                </p>
+            </div>
+            <div class="main-container">
+                <div id="photo-network" class="visualization-container-left"></div>
+                <div id="word-cloud-container" class="visualization-container-right"></div>
+            </div>
+            <br><br><br>
+
+            <div class="description">
+                <h2>User Interaction Visualization</h2>
+                <p>
+                    This section focuses on visualizing a user's interaction with other users.
+                    The interaction on Flickr mainly includes tagging and commenting.
+                </p>
+                <h3>• Who is commenting on your photo?</h3>
+                <p>
+                    The network shows the users who have commented on the photo(s) that the central user posted.
+                    The radius of a user node signifies the total number of comments that the user has received, which can be regarded as the popularity of that user.
+                    The length of the edge connecting two user nodes signifies the time duration between the non-central user's comment date and the current date.
+                    The shorter the edge is, the most recent the commenting activity between two users was.
+                    Since the data is outdated, the current date is assumed to be the most current comment date among all the non-central users' comment dates.
+                </p>
+            </div>
+            <div class="main-container">
+                <div id="comment-network" class="visualization-container-left"></div>
+                <div id="comment-container" class="visualization-container-right"></div>
+            </div>
+
+            <div class="border"><button id="update-comment-network">Update</button></div>
+            <br><br><br>
+
+            <div class="description">
+                <h2>User Sharing Habit Visualization</h2>
+                <p>
+                    This section focuses on visualizing user behavior that can reflect a user's sharing habit.
+                </p>
+            </div>
+            <div class="description">
+                <h3>• What types of photos are you sharing?</h3>
+                <p>
+                    The radial chart shows the most common (at most 8) photo types that a user has posted.
+                    The labels along the outer circle are the photo types.
+                    The vertical axis encodes the number of times a particular kind of photo has been posted.
+                    The arc segments are sorted in descending order.
+                    User can click on the "Update" button to view the sharing habit of another user in the data.
+                </p>
+            </div>
+            <div class="main-container">
+                <div id="chart" class="visualization-container-left"></div>
+                <div id="user-info-container" class="visualization-container-right"></div>
+            </div>
+            <div class="border"><button id="update-chart">Update</button></div>
+            <br><br><br>
+
+        </div>
+
+        <script src="src/network.js"></script>
+        <script src="src/comment_network.js"></script>
+        <script src="src/chart.js"></script>
+    </body>
+
+
+</html>

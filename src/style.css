@@ -1,0 +1,267 @@
+html {
+    opacity: 1.0;
+}
+
+
+body {
+    background-color: rgba(141, 206, 214, 1);
+    font-family: Georgia;
+    color: rgb(230, 230, 230);
+}
+
+h1 {
+    color: rgb(125, 125, 125);
+}
+
+h2 {
+    color: rgb(145, 145, 145);
+}
+
+h3 {
+    color: rgb(155, 155, 155);
+}
+
+/* unvisited link */
+a:link {
+    color: grey;
+}
+
+/* visited link */
+a:visited {
+    color: white;
+}
+
+/* mouse over link */
+a:hover {
+    color: hotpink;
+}
+
+/* selected link */
+a:active {
+    color: grey;
+}
+
+
+div.border {
+    text-align: center;
+}
+
+div.border button {
+    color: #fff;
+    width: 140px;
+    height: 40px;
+    font-size: 16px;
+    font-family: Serif;
+    background: rgba(0, 0, 0, 0);
+    border: solid 1px #fff;
+    border-radius: 25px;
+    display: block;
+    margin-left: auto;
+}
+
+.links line {
+    stroke-opacity: 0.8;
+}
+
+#g-comment-network .links line {
+    stroke: rgb(238, 248, 255);
+    stroke-width: 1px;
+    opacity: 0.65;
+}
+
+#g-comment-network .nodes circle.comment {
+    fill: rgb(238, 248, 255);
+    stroke-width: 0px;
+    opacity: 0.85;
+}
+
+.links line.tag {
+    stroke-width: 0.5px;
+    stroke: rgb(255, 255, 255);
+}
+
+.links line.user {
+    stroke: rgb(210, 173, 128);
+    stroke-width: 2px;
+}
+
+
+.nodes circle {
+    stroke-width: 0px;
+    opacity: 0.75;
+}
+
+.nodes circle.tag {
+    fill: rgb(255, 255, 255);
+}
+
+.nodes circle.user {
+    fill: rgb(210, 173, 128);
+}
+
+.nodes circle.userandtag {
+    fill: rgb(255, 111, 105);
+}
+
+.nodes circle:hover {
+    opacity: 1.0;
+}
+.nodes circle.tag:hover {
+    fill: rgb(255, 255, 255);
+}
+
+.nodes circle.user:hover {
+    fill: rgb(210, 173, 128);
+}
+
+.nodes circle.userandtag:hover {
+    fill: rgb(255, 111, 105);
+}
+
+.d3-tip {
+    line-height: 1;
+    padding: 6px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+    box-sizing: border-box;
+    display: inline;
+    font-size: 10px;
+    width: 100%;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.8);
+    content: "\25BC";
+    position: absolute;
+    text-align: center;
+}
+
+/* Style northward tooltips specifically */
+.d3-tip.n:after {
+    margin: -2px 0 0 0;
+    top: 100%;
+    left: 0;
+}
+
+.svg-container {
+    width: 100%;
+    border-style: none;
+    border-radius: 25px;
+}
+
+#g-photo-network {
+    visibility: visible;
+}
+
+.description {
+    display: block;
+    width: 35%;
+}
+
+.visualization-container {
+    width: 75%;
+    height: auto;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.25);
+    border-width: thin;
+    border-radius: 25px;
+    display: block;
+    margin: auto;
+}
+
+.main-container {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+
+.visualization-container-left {
+    width: 75%;
+    height: auto;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.25);
+    border-width: thin;
+    border-radius: 25px;
+    float: left;
+    margin: auto;
+}
+
+.visualization-container-right {
+    width: 24%;
+    height: 600px;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.25);
+    border-width: thin;
+    border-radius: 25px;
+    float: right;
+    overflow: scroll;
+}
+
+#user-info-container {
+    font-size: 16px;
+    height: 200px;
+}
+
+
+#chart {
+  font-family: Georgia;
+  font-size: 14px;
+}
+
+#chart path {
+  fill: none;
+  stroke-width: 0px;
+}
+
+#chart g.layer-0 path {
+    stroke: #fff;
+    stroke-width: 2px;
+    opacity: 0.75;
+}
+
+#chart g.layer-1 path {
+    stroke: #999;
+    stroke-width: 2px;
+    opacity: 0.3;
+}
+
+#chart circle.outer {
+  stroke: #fff;
+  stroke-dasharray: 5, 5;
+}
+
+#chart g.tick-circles circle {
+  stroke: #eee;
+  stroke-dasharray: 3, 3;
+}
+
+#chart g.spokes line {
+  stroke: #fff;
+  stroke-width: 0.2;
+}
+
+#chart g.axis text {
+    fill: #888;
+    font-family: Georgia;
+    font-size: 14px;
+}
+
+#chart g.axis path {
+  stroke: #999;
+  shape-rendering: crispEdges;
+}
+
+#chart g.axis line {
+  stroke: #999;
+  shape-rendering: crispEdges;
+}
+
+#chart g.labels text {
+    fill: #eee;
+    font-size: 14px;
+    font-weight: 500;
+}
