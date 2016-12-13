@@ -26,9 +26,14 @@
                 <p>
                     This section tries to visualize the similarity network of a chosen photo.
                     An edge between photo nodes is formed when two photos either are uploaded by the same user or share same tags.
-                    Grey links signify same tags. Brown links signify being uploaded by the same user.
-                    Red links signify same tags as well as being uploaded by the same user.
+                    White links indicate same tags, pink links indicate being uploaded by the same user, and red links indicate a combination of both attributes.
                     User can mouse hover a photo node to see more information about that photo.
+                    <br>
+                    <br>
+                    The radius of a user node indicates the total number of comments that the user has received from other users, which can be regarded as the popularity of that user.
+                    The length of the edge connecting two user nodes indicates the time duration between the comment date and the current date.
+                    So essentially, the bigger the user node is, the more popular the user is, and the shorter the edge is, the more recent the commenting activity is.
+                    Since the data is outdated, the current date is assumed to be the most current comment date among all the outter users' comment dates.
                 </p>
             </div>
             <div class="main-container">
@@ -46,10 +51,8 @@
                 <h3>• Who is commenting on your photo?</h3>
                 <p>
                     The network shows the users who have commented on the photo(s) that the central user posted.
-                    The radius of a user node signifies the total number of comments that the user has received, which can be regarded as the popularity of that user.
-                    The length of the edge connecting two user nodes signifies the time duration between the non-central user's comment date and the current date.
-                    The shorter the edge is, the most recent the commenting activity between two users was.
-                    Since the data is outdated, the current date is assumed to be the most current comment date among all the non-central users' comment dates.
+                    Similar to the photo similarity network, the radius of a user node indicates the popularity of that user and the length of the edge connecting two user nodes indicates the time duration between the comment date and the current date.
+                    So essentially, the bigger the user node is, the more popular the user is, and the shorter the edge is, the more recent the commenting activity is.
                 </p>
             </div>
             <div class="main-container">

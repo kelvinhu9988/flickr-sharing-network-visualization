@@ -14,6 +14,10 @@ function draw_comment_network() {
             .force("charge", d3.forceManyBody())
             .force("center", d3.forceCenter(width / 5, height / 2));
 
+        var tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0]);
+
         function initialize_comment_network_data(index) {
             var user_row = user_info_data[index];
             var target_nodes = [];
@@ -36,15 +40,8 @@ function draw_comment_network() {
                 }
                 if (to_add) {
                     var username = "";
-                    var realname = "";
-                    for (key in user_info_data) {
-                        if (node_id == user_info_data[key]["id"]) {
-                            username = user_info_data[key]["username"];
-                            realname = user_info_data[key]["realname"];
-                        }
-                    }
-
-                    nodes_data[counter] = { "id": node_id, "username": username, "realname": realname,
+                    username = nodes_data[0]["commentedby-usernames"][i];
+                    nodes_data[counter] = { "id": node_id, "username": username,
                                             "type": "comment", "radius": 15 + 2 * Math.random() };
                     counter++;
                 }
@@ -52,9 +49,9 @@ function draw_comment_network() {
 
             for (i = 0; i < target_nodes.length; i++) {
                 var node_id = target_nodes[i];
-                links_data[i] = { "source": user_row["id"], "target": node_id, "type": "comment", "length": 105 + 10 * Math.random() };
+                links_data[i] = { "source": user_row["id"], "target": node_id, "type": "comment", "length": 100 + 100 * Math.random() };
             }
-
+            console.log(nodes_data);
         }
 
         function update_comment_network() {
@@ -69,7 +66,8 @@ function draw_comment_network() {
             if (!updated)
                 create_network();
             else
-                update_comment_network();
+                update_network();
+
 
             nodes_data = [];
             links_data = [];
@@ -82,7 +80,6 @@ function draw_comment_network() {
         update_comment_network();
 
         function create_network() {
-
             var svg = d3.select("#comment-network")
                 .append("svg")
                 .attr("class", "svg-container")
@@ -91,9 +88,6 @@ function draw_comment_network() {
             var g = svg.append("g")
                 .attr("id", "g-comment-network");
 
-            var tip = d3.tip()
-                .attr('class', 'd3-tip')
-                .offset([-10, 0]);
             g.call(tip);
 
             var link = g.append("g").attr("class", "links")
@@ -118,7 +112,7 @@ function draw_comment_network() {
                                             return d.radius;
                                         }
                                     });
-                                var tip_message = "User ID: " + d["id"] + "<br>Username: " + d["username"] + "<br>Real name: " + d["realname"];
+                                var tip_message = "User ID: " + d["id"] + "<br>Username: " + d["username"];
                                 tip.html(tip_message);
                                 tip.show();
                                 link.style('stroke-width', function(l) {
@@ -148,13 +142,12 @@ function draw_comment_network() {
                 .scaleExtent([1, 8])
                 .translateExtent([[-100, -100], [width + 100, height + 100]])
                 .on("zoom", zoomed);
-            zoom.scaleBy(svg, 1.5);
+            zoom.scaleBy(svg, 2);
             svg.call(zoom);
 
             var html_message = "<br><br>";
-            for (key in nodes_data[0]["comments"]) {
-                html_message += "<em>" + nodes_data[0]["commentedby-usernames"][key] + "</em>: " + nodes_data[0]["comments"][key] + "<br><br>";
-            }
+            for (key in nodes_data[0]["comments"])
+                html_message += "<span class='emphasized' style='color:black'>" + nodes_data[0]["commentedby-usernames"][key] + "</span>: " + nodes_data[0]["comments"][key] + "<br><br>";
             d3.select("#comment-container").html(html_message);
 
             function ticked() {
@@ -173,6 +166,84 @@ function draw_comment_network() {
         }
 
         function update_network() {
+
+            var svg = d3.select("#comment-network").select("svg");
+            var g = d3.select("#g-comment-network");
+
+            g.call(tip);
+
+            g.select(".links").selectAll("line").remove();
+            g.select(".nodes").selectAll("circle").remove();
+            d3.select("#comment-container").html("");
+
+            var link = g.select(".links")
+                .selectAll("line").data(links_data).enter()
+                .append("line")
+                    .attr("class", function(d) {
+                        return d.type;
+                    });
+
+            var node = g.select(".nodes")
+                        .selectAll("circle").data(nodes_data).enter()
+                        .append("circle")
+                            .attr("r", function(d) { return d.radius; })
+                            .attr("class", function(d) { return d.type; })
+                            .on("mouseover", function(d) {
+                                d3.select(this)
+                                    .transition().duration(200)
+                                    .attr("r", function(d) {
+                                        if (d.type != "center")
+                                            return 2 * d.radius > 35 ? 35 : 2 * d.radius
+                                        else {
+                                            return d.radius;
+                                        }
+                                    });
+                                var tip_message = "User ID: " + d["id"] + "<br>Username: " + d["username"];
+                                tip.html(tip_message);
+                                tip.show();
+                                link.style('stroke-width', function(l) {
+                                    if (d == l.target)
+                                        return 10;
+                                });
+                            })
+                            .on('mouseout', function(d) {
+                                d3.select(this)
+                                .transition().duration(200)
+                                .attr("r", function(d) { return d.radius; });
+                                tip.hide();
+                                link.style('stroke-width', function(l) {
+                                    if (d == l.target)
+                                        return 1;
+                                });
+                            })
+                            .call(d3.drag()
+                                    .on("start", dragstarted)
+                                    .on("drag", dragged)
+                                    .on("end", dragended));
+
+            simulation.nodes(nodes_data).on("tick", ticked);
+            simulation.force("link").links(links_data).distance(function(d) { return d.length; });
+
+
+            var html_message = "<br><br>";
+            for (key in nodes_data[0]["comments"]) {
+                html_message += "<span class='emphasized' style='color:black'>" + nodes_data[0]["commentedby-usernames"][key] + "</span>: " + nodes_data[0]["comments"][key] + "<br><br>";
+            }
+            d3.select("#comment-container").html(html_message);
+
+            function ticked() {
+                link.attr("x1", function(d) { return d.source.x; })
+                    .attr("y1", function(d) { return d.source.y; })
+                    .attr("x2", function(d) { return d.target.x; })
+                    .attr("y2", function(d) { return d.target.y; });
+
+                node.attr("cx", function(d) { return d.x; })
+                    .attr("cy", function(d) { return d.y; });
+            }
+
+            function zoomed() {
+                g.attr("transform", d3.event.transform);
+            }
 
         }
 

@@ -134,14 +134,15 @@ function draw_photo_similarity_network() {
 
             function draw_word_cloud(labels) {
                 var frequency_list = []
-                for (label in labels)
-                    frequency_list.push({ "text": labels[label], "size": 30 });
+                for (key in labels)
+                    frequency_list.push({ "text": labels[key].toLowerCase(), "size": 30 + Math.random() * 70 });
 
                 var color = d3.scaleOrdinal(d3.schemePastel2);
 
                 d3.layout.cloud().size([200, 600])
                     .words(frequency_list)
-                    .rotate(0)
+                    .rotate(function() { return Math.floor(Math.random() * 1) * 90; })
+                    .font("Impact")
                     .fontSize(function(d) { return d.size; })
                     .on("end", draw)
                     .start();

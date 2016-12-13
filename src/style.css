@@ -9,6 +9,10 @@ body {
     color: rgb(230, 230, 230);
 }
 
+p {
+    font-size: 16px;
+}
+
 h1 {
     color: rgb(125, 125, 125);
 }
@@ -50,7 +54,7 @@ div.border button {
     color: #fff;
     width: 140px;
     height: 40px;
-    font-size: 16px;
+    font-size: 18px;
     font-family: Serif;
     background: rgba(0, 0, 0, 0);
     border: solid 1px #fff;
@@ -59,9 +63,12 @@ div.border button {
     margin-left: auto;
 }
 
-.links line {
-    stroke-opacity: 0.8;
+
+span.emphasized {
+    font-style: italic;
+    font-weight: bold;
 }
+
 
 #g-comment-network .links line {
     stroke: rgb(238, 248, 255);
@@ -75,16 +82,23 @@ div.border button {
     opacity: 0.85;
 }
 
+
+
+
 .links line.tag {
     stroke-width: 0.5px;
     stroke: rgb(255, 255, 255);
 }
 
 .links line.user {
-    stroke: rgb(210, 173, 128);
     stroke-width: 2px;
+    stroke: rgb(255, 192, 203);
 }
 
+.links line.userandtag {
+    stroke-width: 2px;
+    stroke: rgb(255, 111, 105);
+}
 
 .nodes circle {
     stroke-width: 0px;
@@ -96,7 +110,7 @@ div.border button {
 }
 
 .nodes circle.user {
-    fill: rgb(210, 173, 128);
+    fill: rgb(255, 192, 203);
 }
 
 .nodes circle.userandtag {
@@ -111,7 +125,7 @@ div.border button {
 }
 
 .nodes circle.user:hover {
-    fill: rgb(210, 173, 128);
+    fill: rgb(255, 192, 203);
 }
 
 .nodes circle.userandtag:hover {
@@ -131,7 +145,7 @@ div.border button {
 .d3-tip:after {
     box-sizing: border-box;
     display: inline;
-    font-size: 10px;
+    font-size: 12px;
     width: 100%;
     line-height: 1;
     color: rgba(0, 0, 0, 0.8);
@@ -159,7 +173,7 @@ div.border button {
 
 .description {
     display: block;
-    width: 35%;
+    width: 45%;
 }
 
 .visualization-container {

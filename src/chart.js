@@ -5,7 +5,6 @@ function draw_chart() {
     d3.csv(user_info_path, function(error, user_info_data) {
         if (error) throw error;
 
-
         var data = [{data: {}}];
         var keys = null;
         var maxVal;
@@ -15,10 +14,10 @@ function draw_chart() {
         var html_message = "";
         function initialize_data(index) {
             keys = user_info_data[index]['photos-labels'].split('|');
-            html_message = "<br>User ID: " + user_info_data[index]['id'] + "<br>" +
-                            "Username: " + user_info_data[index]['username'] + "<br>" +
-                            "Real name: " + user_info_data[index]['realname'] + "<br>" +
-                            "Location: " + user_info_data[index]['location'] + "<br>";
+            html_message = "<br><span class='emphasized'>User ID</span>: " + user_info_data[index]['id'] + "<br>" +
+                            "<span class='emphasized'>Username</span>: " + user_info_data[index]['username'] + "<br>" +
+                            "<span class='emphasized'>Real name</span>: " + user_info_data[index]['realname'] + "<br>" +
+                            "<span class='emphasized'>Location</span>: " + user_info_data[index]['location'] + "<br>";
 
             for (var i = 0; i < keys.length; i++) {
                 var key_to_count = keys[i];
